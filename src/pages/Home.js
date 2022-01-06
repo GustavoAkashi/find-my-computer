@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Home = () => {
@@ -6,7 +7,7 @@ const Home = () => {
         <Container>
             <ContentWrapper>
                 <Title>Find my computer !</Title>
-                <StartButton>Start quiz</StartButton>
+                <StartButton to='/quiz'>Start Quiz</StartButton>
             </ContentWrapper>
         </Container>
     )
@@ -39,7 +40,7 @@ const Title = styled.h1`
     size: 14px;
 `
 
-const StartButton = styled.button`
+const StartButton = styled(Link)`
     background-color: black;
     height: 40px;
     color: white;
