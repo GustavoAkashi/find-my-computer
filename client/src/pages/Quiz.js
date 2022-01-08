@@ -88,7 +88,6 @@ const Quiz = () => {
             setProcessor(optionId)
             results.processador = optionValue
         }
-        console.log(results)
     }
 
     const handleArrows = (type) => {
@@ -130,10 +129,16 @@ const Quiz = () => {
                     <LeftArrow onClick={() => handleArrows('back')}>
                         <AiOutlineArrowLeft size={40} />
                     </LeftArrow>
-                    <RightArrow onClick={() => handleArrows('foward')}>
-                        <AiOutlineArrowRight size={40} />
-                    </RightArrow>
-                    <SubmitButton to='/results' state={results}>Send !</SubmitButton>
+                    {
+                        (question < questions.length - 1 ?
+                            <RightArrow onClick={() => handleArrows('foward')}>
+                                <AiOutlineArrowRight size={40} />
+                            </RightArrow>
+                            : <></>)
+                    }
+                    {
+                        (question == questions.length - 1 ? (<SubmitButton to='/results' state={results}>Send !</SubmitButton>) : <></>)
+                    }
                 </Footer>
             </ContentWrapper>
         </Container>
@@ -154,8 +159,8 @@ const Container = styled.div`
 
 const ContentWrapper = styled.div`
     background:#FFD23F;
-    height: 500px;
-    width: 800px;
+    height: 600px;
+    width: 1000px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;

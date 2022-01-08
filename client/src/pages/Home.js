@@ -49,7 +49,7 @@ const StartButton = styled(Link)`
     color: white;
     width: 256px;
     display:flex;
-    background: #272932;
+    background: black;
     justify-content:center;
     align-items:center;
     padding: 1rem;
