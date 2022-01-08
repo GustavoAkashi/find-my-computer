@@ -8,7 +8,22 @@ app.use(express.json())
 
 app.get('/results', async (req, res) => {
     try {
-        const results = await pool.query("SELECT * from computadores")
+        const parameters = req.query
+        const searchTerm = JSON.parse(parameters.searchTerm)
+        const table = parameters.table
+        var results;
+        if (table == 'computadores') {
+            results = await pool.query(
+                "SELECT computer_name,ram_name,video_name,motherboard_name,processor_name,storage_name,price,computer_image FROM computadores WHERE 1=1 AND ram_rate <= $1 AND price <= $2 AND video_rate >= $3 AND processor_rate >= $4"
+                , [searchTerm.ram, searchTerm.budget, searchTerm.video, searchTerm.processador]
+            )
+        } else {
+            results = await pool.query(
+                "SELECT computer_name,ram_name,video_name,motherboard_name,processor_name,storage_name,price,computer_image FROM notebook WHERE 1=1 AND ram_rate <= $1 AND price <= $2 AND video_rate >= $3 AND processor_rate >= $4"
+                , [searchTerm.ram, searchTerm.budget, searchTerm.video, searchTerm.processador]
+            )
+        }
+
         res.json(results.rows)
     } catch (error) {
         console.error(error.message)

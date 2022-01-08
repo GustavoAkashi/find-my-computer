@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Question from '../components/Question'
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
@@ -74,20 +73,18 @@ const Quiz = () => {
         },
     ]
 
-    const [ActualQuestion, setActualQuestion] = useState(questions[0].questionType)
-
     const handleOption = (type, optionId, optionValue) => {
         console.log(type)
-        if (type == 'ram') {
+        if (type === 'ram') {
             setRam(optionId)
             results.ram = optionValue
-        } else if (type == 'budget') {
+        } else if (type === 'budget') {
             setBudget(optionId)
             results.budget = optionValue
-        } else if (type == 'video') {
+        } else if (type === 'video') {
             setVideo(optionId)
             results.video = optionValue
-        } else if (type == 'processor') {
+        } else if (type === 'processor') {
             setProcessor(optionId)
             results.processador = optionValue
         }
@@ -95,7 +92,7 @@ const Quiz = () => {
     }
 
     const handleArrows = (type) => {
-        if (type == 'back') {
+        if (type === 'back') {
             if (question > 0) {
                 setQuestion(question - 1)
             }
@@ -122,7 +119,7 @@ const Quiz = () => {
                     <QuestionOptionWrapper>
                         {questions[question].questionOptions.map((option) => (
                             <AnswersWrapper>
-                                <QuestionOption onClick={() => handleOption(questions[question].questionType, option.id, option.value)} isSelected={option.id == questions[question].questionMarker}>{option.text}</QuestionOption>
+                                <QuestionOption onClick={() => handleOption(questions[question].questionType, option.id, option.value)} isSelected={option.id === questions[question].questionMarker}>{option.text}</QuestionOption>
                             </AnswersWrapper>
 
                         ))}
@@ -147,7 +144,7 @@ export default Quiz
 
 
 const Container = styled.div`
-    background: #870dd9;
+    background: #870DD9;
     height:100vh;
     display:flex;
     align-items:center;
@@ -156,16 +153,18 @@ const Container = styled.div`
 `
 
 const ContentWrapper = styled.div`
-    background:#ffffff;
+    background:#FFD23F;
     height: 500px;
     width: 800px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    border: 4px solid #272932;
+    border-radius: 12px;
 `
 
 const HeaderWrapper = styled.div`
-    background: #f5f5f5;
+    background: #FFD23F;
     height: 100px;
     display:flex;
     align-items:center;
@@ -173,6 +172,8 @@ const HeaderWrapper = styled.div`
     padding-right: 1rem;
     font-size: 24px;
     justify-content:space-between;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 `
 
 const Title = styled.h1`
@@ -186,9 +187,10 @@ const QuestionCounter = styled.h1`
 const QuestionWrapper = styled.div`
     display:flex;
     flex-direction:column;
-    background: orange;
+    background: #FF6700;
     height:100%;
     padding: 1rem;
+    border: 1px solid #272932;
 `
 
 const QuestionTitle = styled.h1`
@@ -228,16 +230,17 @@ const QuestionOption = styled.button`
     &:hover {
         transform: translate(-1%, -3%);
         transition: 0.3s ease-out;
-      }
+    }
 `
 
 const Footer = styled.div`
-    background:#f5f5f5;
+    background:#FFD23F;
     height: 100px;
     display:flex;
     align-items:center;
     padding-right: 2rem;
     justify-content:space-around;
+    border-radius: 12px;
 `
 
 const LeftArrow = styled.button`
@@ -254,4 +257,13 @@ const RightArrow = styled.button`
 const SubmitButton = styled(Link)`
       cursor: pointer;
       font-size: 24px;
+      background: #FF6700;
+      text-decoration:none;
+      color:black;
+      border: 2px solid #272932;
+      border-radius: 12px;
+      width:200px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
 `

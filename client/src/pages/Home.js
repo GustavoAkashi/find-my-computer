@@ -28,24 +28,28 @@ const Container = styled.div`
 const ContentWrapper = styled.div`
     width: 400px;
     height: 400px;
-    background: orange;
+    background: #FF6700;
     display:flex;
     flex-direction:column;
     align-items:center;
     padding: 1rem;
     justify-content:space-around;
+    font-family:"Roboto";
+    font-weight:bold;
+    border: 4px solid #272932;
+    border-radius: 12px;
 `
 
 const Title = styled.h1`
-    size: 14px;
+    font-size: 40px;
 `
 
 const StartButton = styled(Link)`
-    background-color: black;
     height: 40px;
     color: white;
     width: 256px;
     display:flex;
+    background: #272932;
     justify-content:center;
     align-items:center;
     padding: 1rem;
@@ -54,5 +58,12 @@ const StartButton = styled(Link)`
     font-size: 12px;
     opacity: 0.85;
     cursor:pointer;
+    font-size: 16px;
+    text-decoration:none;
+
+    &:hover {
+        transform: translate(0, -3%);
+        transition: 0.5s ease-in-out;
+    }
 
 `
