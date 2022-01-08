@@ -5,7 +5,7 @@ create table notebook (
 	motherboard_name VARCHAR(100),
 	processor_name VARCHAR(100),
 	processor_rate INTEGER,
-	price REAL,
+	price NUMERIC,
 	computer_name VARCHAR(255),
 	storage_name VARCHAR(255),
 	storage_type INTEGER,
