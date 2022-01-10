@@ -9,32 +9,36 @@ var results = {
     budget: '',
     video: '',
     processador: '',
+    tipo_armazenamento: '',
+    qnt_armazenamento: '',
 }
 
 const Quiz = () => {
 
     const [question, setQuestion] = useState(0);
 
-    const [ram, setRam] = useState(-1);
-
     const [budget, setBudget] = useState(-1);
 
     const [video, setVideo] = useState(-1);
 
-    const [processor, setProcessor] = useState(-1);
+    const [ArmazenamentoType, setArmazenamentoType] = useState(-1);
+
+    const [ArmazenamentoQnt, setArmazenamentoQnt] = useState(-1);
 
 
 
     const questions = [
         {
-            questionType: 'ram',
-            questionMarker: ram,
-            questionText: 'Quanto voce tem que usar de RAM ?',
+            questionType: 'video',
+            questionMarker: video,
+            questionText: 'Para qual finalidade você pretende usar o computador ?',
             questionOptions: [
-                { text: 'Vou usar muita RAM', id: 0, value: 32 },
-                { text: 'Vou usar pouca RAM', id: 1, value: 8 },
-                { text: 'Vou usar RAM as vezes', id: 2, value: 16 },
-                { text: 'Quero algo normal não muito caro', id: 3, value: 8 },
+                { text: 'Jogos mais pesados como GTA, Forza Horizon, Crysis.', id: 0, value: 4 },
+                { text: 'Jogos mais leves como FreeFire, League of Legends.', id: 1, value: 3 },
+                { text: 'Edição de imagem e vídeo (Sony Vegas, Adobe premiere)', id: 2, value: 4 },
+                { text: 'Programas de desenho técnico e engenharia (Autocad, Revit) ', id: 3, value: 3 },
+                { text: 'Pacote office, microsoft teams, usar a internet casualmente.', id: 4, value: 0 },
+                { text: 'Programação.', id: 5, value: 2 },
             ]
 
         },
@@ -43,50 +47,54 @@ const Quiz = () => {
             questionMarker: budget,
             questionText: 'Quanto voce pretende gastar ?',
             questionOptions: [
-                { text: 'Menos de 2000', id: 0, value: 2000 },
-                { text: 'Menos de 3000', id: 1, value: 3000 },
-                { text: 'Menos de 4000', id: 2, value: 4000 },
-                { text: 'Indiferente', id: 3, value: 1123456 },
+                { text: 'Menos de 1500', id: 0, value: 1500 },
+                { text: 'Menos de 2500', id: 1, value: 2500 },
+                { text: 'Menos de 3500', id: 2, value: 3500 },
+                { text: 'Menos de 4500', id: 3, value: 4500 },
+                { text: 'Indiferente', id: 4, value: 1123456 },
             ]
         },
         {
-            questionType: 'video',
-            questionMarker: video,
-            questionText: 'Pra qual finalidade voce pretende usar o computador ?',
+            questionType: 'armazenamento_ssd',
+            questionMarker: ArmazenamentoType,
+            questionText: 'Você gostaria de gostaria de gastar um pouco mais e ter um melhoria na rapidez de ligar o computador e abrir programas ?',
             questionOptions: [
-                { text: 'Jogos e trabalho / estudo', id: 0, value: 5 },
-                { text: 'Trabalho com edição de imagens e vídeos', id: 1, value: 5 },
-                { text: 'Trabalho com programação', id: 2, value: 2 },
-                { text: 'Uso Cotidiano', id: 3, value: 1 },
+                { text: 'Sim', id: 0, value: 2 },
+                { text: 'Não', id: 1, value: 3 },
             ]
         },
         {
-            questionType: 'processor',
-            questionMarker: processor,
-            questionText: 'Voce pretende usar o processador ?',
+            questionType: 'armazenamento_qnt',
+            questionMarker: ArmazenamentoQnt,
+            questionText: 'Você precisará armazenar muitos arquivos ? (Fotos, vídeos)',
             questionOptions: [
-                { text: 'Muito', id: 0, value: 3 },
-                { text: 'Pouco', id: 1, value: 1 },
-                { text: 'Muito demais', id: 2, value: 4 },
-                { text: 'Razoavelmente', id: 3, value: 2 },
+                { text: 'Sim', id: 0, value: 400 },
+                { text: 'Não', id: 1, value: 0 },
             ]
         },
     ]
 
     const handleOption = (type, optionId, optionValue) => {
-        console.log(type)
-        if (type === 'ram') {
-            setRam(optionId)
-            results.ram = optionValue
-        } else if (type === 'budget') {
+        if (type === 'budget') {
             setBudget(optionId)
             results.budget = optionValue
         } else if (type === 'video') {
             setVideo(optionId)
             results.video = optionValue
-        } else if (type === 'processor') {
-            setProcessor(optionId)
             results.processador = optionValue
+            if (optionValue >= 4) {
+                results.ram = 16
+            } else if (optionValue >= 3) {
+                results.ram = 8
+            } else {
+                results.ram = 0
+            }
+        } else if (type === 'armazenamento_ssd') {
+            setArmazenamentoType(optionId)
+            results.tipo_armazenamento = optionValue
+        } else if (type === 'armazenamento_qnt') {
+            setArmazenamentoQnt(optionId)
+            results.qnt_armazenamento = optionValue
         }
     }
 
@@ -217,7 +225,7 @@ const AnswersWrapper = styled.div`
 
 const QuestionOption = styled.button`
     padding-top:2rem;
-    width: 400px;
+    width: 600px;
     border-radius: 5px;
     background: ${props => props.isSelected ? 'green' : 'white'};
     border-width:thin;
@@ -226,7 +234,7 @@ const QuestionOption = styled.button`
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    font-size: 24px;
+    font-size: 18px;
     border:none;
     text-align:center;
 

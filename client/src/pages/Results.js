@@ -15,6 +15,8 @@ const Results = () => {
 
     const query_parameters = location.state
 
+    console.log(query_parameters)
+
     const getResultsComputer = async () => {
         api.get("results",
             { params: { searchTerm: query_parameters, table: 'computadores' } }).then(({ data }) => {
@@ -44,23 +46,25 @@ const Results = () => {
                     <OptionButton isSelected={option === 'notebook'} onClick={() => setOption('notebook')}>Notebooks</OptionButton>
                 </OptionsWrapper>
                 <DisplayResultsWrapper>
-                    {(option === 'computer' ? ComputerList : NotebookList).map((item, id) => (
-                        <ProductWrapper id={id}>
-                            <ProductInfos>
-                                <ProductName>{item.computer_name}</ProductName>
-                                <SpecifiedInfo><b>Placa de vídeo:</b> {item.video_name}</SpecifiedInfo>
-                                <SpecifiedInfo><b>RAM:</b> {item.ram_name}</SpecifiedInfo>
-                                <SpecifiedInfo><b>Processador:</b> {item.processor_name}</SpecifiedInfo>
-                                <SpecifiedInfo><b>Placa-mãe:</b> {item.motherboard_name}</SpecifiedInfo>
-                                <SpecifiedInfo><b>Armazenamento:</b> {item.storage_name}</SpecifiedInfo>
+                    {option === 'computer' && ComputerList.length == 0 ? <NothingToShow>Não conseguimos encontrar o computador perfeito pra você :(</NothingToShow> :
+                        option === 'notebook' && NotebookList.length == 0 ? <NothingToShow>Não conseguimos encontrar o notebook perfeito pra você :(</NothingToShow> :
+                            (option === 'computer' ? ComputerList : NotebookList).map((item, id) => (
+                                <ProductWrapper id={id}>
+                                    <ProductInfos>
+                                        <ProductName>{item.computer_name}</ProductName>
+                                        <SpecifiedInfo><b>Placa de vídeo:</b> {item.video_name}</SpecifiedInfo>
+                                        <SpecifiedInfo><b>RAM:</b> {item.ram_name}</SpecifiedInfo>
+                                        <SpecifiedInfo><b>Processador:</b> {item.processor_name}</SpecifiedInfo>
+                                        <SpecifiedInfo><b>Placa-mãe:</b> {item.motherboard_name}</SpecifiedInfo>
+                                        <SpecifiedInfo><b>Armazenamento:</b> {item.storage_name}</SpecifiedInfo>
 
-                            </ProductInfos>
-                            <ProductImageWrapper>
-                                <ProductImage img_url={item.computer_image} />
-                                <ProdutPrice>R$ {item.price}</ProdutPrice>
-                            </ProductImageWrapper>
-                        </ProductWrapper>
-                    ))}
+                                    </ProductInfos>
+                                    <ProductImageWrapper>
+                                        <ProductImage img_url={item.computer_image} />
+                                        <ProdutPrice>R$ {item.price}</ProdutPrice>
+                                    </ProductImageWrapper>
+                                </ProductWrapper>
+                            ))}
                 </DisplayResultsWrapper>
             </ResultsWrapper>
         </Container>
@@ -163,12 +167,13 @@ const ProductImageWrapper = styled.div`
 `
 
 const ProductImage = styled.img`
-    height: 320px;
+    height: 280px;
     background: white;
-    width: 320px;
+    width: 280px;
     background-image: url(${props => props.img_url});
-    background-size: cover;
-    background-repeat: no - repeat;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 1rem;
 `
 
 const ProductName = styled.h1`
@@ -183,5 +188,11 @@ const SpecifiedInfo = styled.h2`
 
 const ProdutPrice = styled.h1`
     color: green;
+    font-size: 32px;
+`
+
+const NothingToShow = styled.h1`
+    display:flex;
+    justify-content:center;
     font-size: 32px;
 `
