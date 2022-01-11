@@ -22,3 +22,9 @@ ou
 - Basta navegar até a pasta client com cd client e rodar o comando npm start ou yarn start
 
 Por fim, deverá abrir um navegador com o endereço localhost:3000
+
+
+### Onde estão as queries
+- As queries para instanciar o banco de dados estão em `postgres/queries/`
+- As queries para busca no banco estão em `server/index.js`
+- A exibição do resultado das queries estão em `client/src/pages/Results.js`
